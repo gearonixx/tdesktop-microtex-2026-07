@@ -1,0 +1,60 @@
+==1851643==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7c1ff69e5158 at pc 0x555555826bdd bp 0x7fffffffd360 sp 0x7fffffffd358
+READ of size 8 at 0x7c1ff69e5158 thread T0
+    #0 0x555555826bdc in tex::MatrixAtom::recalculateLine(int, std::shared_ptr<tex::Box>**, std::vector<std::shared_ptr<tex::Atom>, std::allocator<std::shared_ptr<tex::Atom>>>&, float*, float*, float, float) /home/x/try5/MicroTeX/src/atom/atom_matrix.cpp:315:13
+    #1 0x55555582cc3c in tex::MatrixAtom::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_matrix.cpp:526:3
+    #2 0x555555852227 in tex::Dummy::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_row.cpp:32:21
+    #3 0x555555852227 in tex::RowAtom::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_row.cpp:190:20
+    #4 0x5555559607b2 in tex::TeXRenderBuilder::build(std::shared_ptr<tex::Atom> const&) /home/x/try5/MicroTeX/src/render.cpp:195:17
+    #5 0x5555557f8664 in tex::LaTeX::parse(std::__cxx11::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>> const&, int, float, float, unsigned int) /home/x/try5/MicroTeX/src/latex.cpp:186:8
+    #6 0x5555557f55c0 in main /home/x/try5/MicroTeX/asan_multirow/main.cpp:10:20
+    #7 0x7ffff7827740 in __libc_start_call_main /usr/src/debug/glibc/glibc/csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+    #8 0x7ffff7827878 in __libc_start_main /usr/src/debug/glibc/glibc/csu/../csu/libc-start.c:360:3
+    #9 0x55555568eb24 in _start (/home/x/try5/MicroTeX/asan_multirow/build/plain+0x13ab24) (BuildId: bf4adca6cda74c9dac90195b65ba79b6e41c3fa6)
+
+0x7c1ff69e5158 is located 0 bytes after 8-byte region [0x7c1ff69e5150,0x7c1ff69e5158)
+allocated by thread T0 here:
+    #0 0x5555557f3af1 in operator new[](unsigned long) (/home/x/try5/MicroTeX/asan_multirow/build/plain+0x29faf1) (BuildId: bf4adca6cda74c9dac90195b65ba79b6e41c3fa6)
+    #1 0x55555582af20 in tex::MatrixAtom::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_matrix.cpp:441:19
+    #2 0x555555852227 in tex::Dummy::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_row.cpp:32:21
+    #3 0x555555852227 in tex::RowAtom::createBox(tex::Environment&) /home/x/try5/MicroTeX/src/atom/atom_row.cpp:190:20
+    #4 0x5555559607b2 in tex::TeXRenderBuilder::build(std::shared_ptr<tex::Atom> const&) /home/x/try5/MicroTeX/src/render.cpp:195:17
+    #5 0x5555557f8664 in tex::LaTeX::parse(std::__cxx11::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>> const&, int, float, float, unsigned int) /home/x/try5/MicroTeX/src/latex.cpp:186:8
+    #6 0x5555557f55c0 in main /home/x/try5/MicroTeX/asan_multirow/main.cpp:10:20
+    #7 0x7ffff7827740 in __libc_start_call_main /usr/src/debug/glibc/glibc/csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+    #8 0x7ffff7827878 in __libc_start_main /usr/src/debug/glibc/glibc/csu/../csu/libc-start.c:360:3
+    #9 0x55555568eb24 in _start (/home/x/try5/MicroTeX/asan_multirow/build/plain+0x13ab24) (BuildId: bf4adca6cda74c9dac90195b65ba79b6e41c3fa6)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/x/try5/MicroTeX/src/atom/atom_matrix.cpp:315:13 in tex::MatrixAtom::recalculateLine(int, std::shared_ptr<tex::Box>**, std::vector<std::shared_ptr<tex::Atom>, std::allocator<std::shared_ptr<tex::Atom>>>&, float*, float*, float, float)
+Shadow bytes around the buggy address:
+  0x7c1ff69e4e80: fa fa 00 04 fa fa 00 04 fa fa 00 04 fa fa 00 04
+  0x7c1ff69e4f00: fa fa 00 04 fa fa 00 04 fa fa 00 04 fa fa 00 04
+  0x7c1ff69e4f80: fa fa 00 04 fa fa 00 04 fa fa 00 04 fa fa 00 04
+  0x7c1ff69e5000: fa fa 00 fa fa fa 00 fa fa fa 00 00 fa fa 01 fa
+  0x7c1ff69e5080: fa fa fd fd fa fa 00 00 fa fa 01 fa fa fa 04 fa
+=>0x7c1ff69e5100: fa fa 04 fa fa fa 04 fa fa fa 00[fa]fa fa 00 00
+  0x7c1ff69e5180: fa fa 00 04 fa fa 00 00 fa fa 00 fa fa fa fa fa
+  0x7c1ff69e5200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7c1ff69e5280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7c1ff69e5300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7c1ff69e5380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1851643==ABORTING
+=== EXIT: 1 ===

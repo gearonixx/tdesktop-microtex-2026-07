@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+cd "$(dirname "$0")/.."   
+
+SRC=$(find lib/src -name '*.cpp' | sort)
+
+g++ -std=c++17 -g -O0 -w -no-pie -fno-stack-protector \
+    -I lib/src \
+    -I lib/src/atom \
+    -I lib/src/box \
+    -I lib/src/core \
+    -I lib/src/fonts \
+    -I lib/src/graphic \
+    -I lib/src/platform \
+    -I lib/src/res \
+    poc/code.cpp $SRC \
+    -o poc/bin
+
+if [ $? -eq 0 ]; then
+    ./poc/bin
+    rm ./poc/bin
+else
+    echo "Compilation failed"
+    exit 1
+fi

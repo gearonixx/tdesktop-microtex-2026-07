@@ -1,0 +1,2 @@
+\begin{array}{c}\multirow{5}{*}{x}\end{array}
+\begin{matrix}\multirow{20}{*}{x}\end{matrix}

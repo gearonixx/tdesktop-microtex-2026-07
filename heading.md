@@ -1,0 +1,1 @@
+Remotely-Triggerable Control-Flow Hijack Primitive (CVSS 7.5) and Heap Buffer Overflow (CVSS 6.5) in LaTeX Rendering
